@@ -1,0 +1,27 @@
+.footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+  
+.add-button {
+    padding: 13px 80px;
+    background-color: rgb(182, 90, 125);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color:rgb(131, 63, 89);
+}
+  
