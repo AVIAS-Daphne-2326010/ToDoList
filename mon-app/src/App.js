@@ -1,166 +1,209 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './css/App.css';
-import todo from './datas.json';
-import Header from './components/Header.js';
-import Footer from './components/Footer.js';
+import todo from './datas.json'; //a enlever
+import Header from './components/Header';
+import Footer from './components/Footer';
+import TaskList from './components/TaskList';
+import CategoryList from './components/CategoryList';
+import InitialModal from './components/InitialModal';
+import TaskModal from './components/TaskModal';
+import CategoryModal from './components/CategoryModal';
+import { ETAT_TERMINE } from './enums/Etats';
 
 function App() {
-  const [currentTodos, setCurrentTodos] = useState(todo)
-  const taches = currentTodos.taches
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newTask, setNewTask] = useState({
-    title: "",
-    description: "",
-    date_creation: new Date().toISOString(),
-    date_echeance: "",
-    etat: "Nouveau",
-    urgent: false,
+  const [currentView, setCurrentView] = useState('tasks');
+  const [currentTodos, setCurrentTodos] = useState({
+    taches: [], 
+    categories: []
   });
+  const [isInitialModalOpen, setIsInitialModalOpen] = useState(true);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    etats: [],
+    categories: [],
+    urgentOnly: false,
+    showCompleted: false
+  });
+  const [sortBy, setSortBy] = useState('date_echeance');
 
-  // Fonction pour ouvrir la fenêtre modale
-  const openModal = () => {
-    setIsModalOpen(true);
+  //chargement initial
+  useEffect(() => {
+    const storedData = localStorage.getItem('todoData');
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        if (parsedData) {
+          setCurrentTodos({
+            taches: parsedData.taches || [],
+            categories: parsedData.categories || []
+          });
+          setIsInitialModalOpen(false);
+        }
+      } catch (e) {
+        console.error("Erreur de parsing des données", e);
+      }
+    }
+  }, []);
+
+  //sauvegarde
+  useEffect(() => {
+    if (currentTodos) {
+      localStorage.setItem('todoData', JSON.stringify(currentTodos));
+    }
+  }, [currentTodos]);
+
+  const loadFromJSON = (jsonData) => {
+    setCurrentTodos(jsonData);
+    setIsInitialModalOpen(false);
   };
 
-  // Fonction pour fermer la fenêtre modale
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  // Fonction pour gérer le changement de champ dans le formulaire
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewTask({
-      ...newTask,
-      [name]: value,
-    });
-  };
-
-  // Fonction pour ajouter une tâches
-  const ajoutTache = () => {
-    
-    const task = {
-      id: Date.now(), 
-      title: newTask.title,
-      description: newTask.description,
-      date_creation: new Date().toISOString(),
-      date_echeance: newTask.date_echeance,
-      etat: newTask.etat,
-      urgent: newTask.urgent,
-    };
+  const startNewProject = () => {
     setCurrentTodos({
-      ...currentTodos,
-      taches: [...currentTodos.taches, task]
+      taches: [],
+      categories: []
     });
-    closeModal();
+    setIsInitialModalOpen(false);
   };
 
-  // Fonction pour ajouter une catégorie
-  const ajoutCategorie = () => {
-    const categorie = {
+  const addTask = (newTask) => {
+    if (!newTask.title || newTask.title.length < 3) {
+      console.error("Le titre doit contenir au moins 3 caractères");
+      return;
+    }
+
+    const taskToAdd = {
       id: Date.now(),
-      title: "Nouvelle Catégorie",
-      color: "green",
-      icon: "",
-      actif: true,
+      title: newTask.title,
+      description: newTask.description || "",
+      date_creation: new Date().toISOString(),
+      date_echeance: newTask.date_echeance || "",
+      etat: newTask.etat || "Nouveau",
+      urgent: newTask.urgent || false,
+      categorie: Array.isArray(newTask.categorie) ? newTask.categorie : []
     };
-    setCurrentTodos({
-      ...currentTodos,
-      categories: [...currentTodos.categories, categorie],
-    });
+  
+    setCurrentTodos(prev => ({
+      ...prev,
+      taches: [...prev.taches, taskToAdd]
+    }));
+    setIsTaskModalOpen(false);
+  }
+
+  const updateTask = (updatedTask) => {
+    setCurrentTodos(prev => ({
+      ...prev,
+      taches:prev.taches.map(task =>
+        task.id===updatedTask.id?updatedTask:task
+      )
+    }));
   };
+
+  const deleteTask = (taskId) => {
+    setCurrentTodos(prev => ({
+      ...prev,
+      taches: prev.taches.filter(task => task.id !== taskId)
+    }));
+  }
+
+  const addCategory = (newCategory) => {
+    setCurrentTodos(prev => ({
+      ...prev,
+      categories: [...prev.categories, {...newCategory,id:Date.now()}]
+    }));
+    setIsCategoryModalOpen(false);
+  }
+
+  const toggleView = () => {
+    setCurrentView(prev => prev === 'tasks' ? 'categories' : 'tasks');
+  };
+
+  const filteredTasks = currentTodos.taches.filter(task => {
+    // Filtre par état
+    if (filters.etats.length > 0 && !filters.etats.includes(task.etat)) {
+      return false;
+    }
+
+    // Filtre par catégorie
+    if (filters.categories.length > 0 && 
+      (!task.categorie || !task.categorie.some(catId => filters.categories.includes(catId)))){
+      return false;
+    }
+
+    // Filtre urgence
+    if (filters.urgentOnly && !task.urgent) return false;
+
+    // Filtre tâches terminées
+    if (!filters.showCompleted && ETAT_TERMINE.includes(task.etat)) return false;
+    
+    return true;
+  });
+  
+  const sortedTasks = [...filteredTasks].sort((a, b) => {
+    if (sortBy === 'date_echeance') {
+      return new Date(a.date_echeance) - new Date(b.date_echeance);
+    }
+    if (sortBy === 'date_creation') {
+      return new Date(a.date_creation) - new Date(b.date_creation);
+    }
+    if (sortBy === 'nom') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
 
   return (
     <div className="App">
-        <Header taches={todo.taches}/>
-        <div className="task-list">
-          <h2>Liste des Tâches</h2>
-          <ul>
-            {taches.map((tache) => (
-              <li key={tache.id}>
-                <h3>{tache.title}</h3>
-                <p>Description: {tache.description || "Aucune description"}</p>
-                <p>Date de création: {tache.date_creation}</p>
-                <p>Date d'échéance: {tache.date_echeance}</p>
-                <p>État: {tache.etat}</p>
-                <p className={tache.urgent ? "urgent" : ""}>
-                {tache.urgent ? "Urgent" : "Non urgent"}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <Footer onAddTache={ajoutTache} onAddCategorie={ajoutCategorie}/>
-    
-
-      {/* Fenêtre modale */}
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Ajouter une nouvelle tâche</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                ajoutTache();
-              }}
-            >
-              <label>Titre</label>
-              <input
-                type="text"
-                name="title"
-                value={newTask.title}
-                onChange={handleInputChange}
-                required
-              />
-              <label>Description</label>
-              <textarea
-                name="description"
-                value={newTask.description}
-                onChange={handleInputChange}
-              />
-              <label>Date d'échéance</label>
-              <input
-                type="date"
-                name="date_echeance"
-                value={newTask.date_echeance}
-                onChange={handleInputChange}
-                required
-              />
-              <label>État</label>
-              <select
-                name="etat"
-                value={newTask.etat}
-                onChange={handleInputChange}
-              >
-                <option value="Nouveau">Nouveau</option>
-                <option value="En cours">En cours</option>
-                <option value="Réussi">Réussi</option>
-                <option value="En attente">En attente</option>
-                <option value="Abandonné">Abandonné</option>
-              </select>
-              <label>Urgent</label>
-              <input
-                type="checkbox"
-                name="urgent"
-                checked={newTask.urgent}
-                onChange={(e) => {
-                  setNewTask({
-                    ...newTask,
-                    urgent: e.target.checked,
-                  });
-                }}
-              />
-              <button type="submit">Ajouter la tâche</button>
-              <button type="button" onClick={closeModal}>
-                Annuler
-              </button>
-            </form>
-          </div>
-        </div>
+      <Header 
+        totalTasks={currentTodos.taches.length}
+        completedTasks={currentTodos.taches.filter(t => ETAT_TERMINE.includes(t.etat)).length}
+      />
+      
+      {currentView === 'tasks' ? (
+        <TaskList 
+          tasks={sortedTasks}
+          categories={currentTodos.categories}
+          onUpdateTask={updateTask}
+          onDeleteTask={deleteTask}
+          filters={filters}
+          setFilters={setFilters}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+      ) : (
+        <CategoryList 
+          categories={currentTodos.categories}
+          onAddCategory={() => setIsCategoryModalOpen(true)}
+        />
       )}
+
+      <Footer 
+        onAddTask={() => setIsTaskModalOpen(true)}
+        onToggleView={toggleView}
+        currentView={currentView}
+      />
+
+      <InitialModal 
+        isOpen={isInitialModalOpen}
+        onLoadFromJSON={loadFromJSON}
+        onStartNew={startNewProject}
+      />
+
+      <TaskModal 
+        isOpen={isTaskModalOpen}
+        onClose={() => setIsTaskModalOpen(false)}
+        onSave={addTask}
+        categories={currentTodos.categories}
+      />
+
+      <CategoryModal 
+        isOpen={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        onSave={addCategory}
+      />
     </div>
   );
+
 }
 
 export default App;
