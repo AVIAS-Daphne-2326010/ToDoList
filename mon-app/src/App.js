@@ -154,10 +154,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header 
-        totalTasks={currentTodos.taches.length}
-        completedTasks={currentTodos.taches.filter(t => ETAT_TERMINE.includes(t.etat)).length}
-      />
+      <Header taches={currentTodos.taches} />
       
       {currentView === 'tasks' ? (
         <TaskList 
