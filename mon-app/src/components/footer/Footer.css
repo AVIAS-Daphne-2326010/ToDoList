@@ -25,3 +25,17 @@
     background-color:rgb(131, 63, 89);
 }
   
+.view-toggle-button {
+    padding: 13px 80px;
+    background-color: rgb(92, 139, 145);
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s;
+  }
+  
+.view-toggle-button:hover {
+    background-color: rgb(66, 101, 105);
+}

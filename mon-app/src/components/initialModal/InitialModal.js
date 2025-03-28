@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/Modal.css';
+import '../../css/Modal.css';
 
 const InitialModal = ({ isOpen, onLoadFromJSON, onStartNew }) => {
   const handleFileUpload = (e) => {

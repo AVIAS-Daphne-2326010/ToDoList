@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ETAT_TERMINE } from '../enums/Etats';
-import '../css/Task.css';
+import { ETAT_TERMINE } from '../../enums/Etats';
+import '../../css/Task.css';
 
 const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);

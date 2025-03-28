@@ -1,5 +1,5 @@
-import Chart from "./Chart.js";
-import '../css/Header.css';
+import Chart from "../chart/Chart.js";
+import './Header.css';
 
 const Header = ({ taches = [] }) => {
     const completedTasks = taches.filter(t => t.etat === "Terminé").length;

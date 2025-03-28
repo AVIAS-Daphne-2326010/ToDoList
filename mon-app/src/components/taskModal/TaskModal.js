@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/Modal.css';
+import '../../css/Modal.css';
 
 const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
   const [newTask, setNewTask] = useState({

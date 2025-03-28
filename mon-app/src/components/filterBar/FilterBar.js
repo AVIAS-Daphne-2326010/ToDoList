@@ -1,6 +1,6 @@
 import React from 'react';
-import { ETATS, ETAT_TERMINE } from '../enums/Etats';
-import '../css/FilterBar.css';
+import { ETATS, ETAT_TERMINE } from '../../enums/Etats';
+import './FilterBar.css';
 
 const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
   const toggleEtatFilter = (etat) => {

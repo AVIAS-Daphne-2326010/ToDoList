@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import './css/App.css';
-import todo from './datas.json'; //a enlever
-import Header from './components/Header';
-import Footer from './components/Footer';
-import TaskList from './components/TaskList';
-import CategoryList from './components/CategoryList';
-import InitialModal from './components/InitialModal';
-import TaskModal from './components/TaskModal';
-import CategoryModal from './components/CategoryModal';
-import { ETAT_TERMINE } from './enums/Etats';
+import './App.css';
+import todo from '../../datas.json'; //a enlever
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import TaskList from '../taskList/TaskList';
+import CategoryList from '../categoryList/CategoryList';
+import InitialModal from '../initialModal/InitialModal';
+import TaskModal from '../taskModal/TaskModal';
+import CategoryModal from '../categoryModal/CategoryModal';
+import { ETAT_TERMINE } from '../../enums/Etats';
 
 function App() {
   const [currentView, setCurrentView] = useState('tasks');
@@ -176,6 +176,7 @@ function App() {
 
       <Footer 
         onAddTask={() => setIsTaskModalOpen(true)}
+        onAddCategorie={()=>setIsCategoryModalOpen(true)}
         onToggleView={toggleView}
         currentView={currentView}
       />

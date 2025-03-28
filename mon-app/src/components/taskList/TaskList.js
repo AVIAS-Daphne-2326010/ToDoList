@@ -1,7 +1,7 @@
 import React from 'react';
-import TaskItem from './TaskItem';
-import FilterBar from './FilterBar';
-import '../css/Task.css';
+import TaskItem from '../taskItem/TaskItem';
+import FilterBar from '../filterBar/FilterBar';
+import '../../css/Task.css';
 
 const TaskList = ({ tasks, categories, onUpdateTask, onDeleteTask, filters, setFilters, sortBy, setSortBy }) => {
   return (
