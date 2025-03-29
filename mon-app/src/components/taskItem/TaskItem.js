@@ -44,13 +44,28 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
             <option value="En attente">En attente</option>
             <option value="Abandonné">Abandonné</option>
           </select>
+
+          <textarea
+            name="description"
+            value={editedTask.description || ''}
+            onChange={handleChange}
+            placeholder="Ajouter une description"
+          />
+
+          <input
+            type="date"
+            name="date_echeance"
+            value={editedTask.date_echeance || ''}
+            onChange={handleChange}
+          />
+
           <button onClick={handleSave}>Enregistrer</button>
           <button onClick={() => setIsEditing(false)}>Annuler</button>
         </div>
       ) : (
         <>
           <div className="task-header">
-            <h3 className={ETAT_TERMINE.includes(task.etat) ? 'completed' : ''}>
+            <h3 className={ETAT_TERMINE.includes(task.etat) ? 'completed-text' : ''}>
               {task.title}
             </h3>
             <span className="task-state">{task.etat}</span>
@@ -59,9 +74,9 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
           {task.description && <p>{task.description}</p>}
           
           <div className="task-dates">
-            <span>Créée le: {new Date(task.date_creation).toLocaleDateString()}</span>
+            <span>Créée le: {new Date(task.date_creation).toLocaleDateString()} <br></br></span>
             {task.date_echeance && (
-              <span>Échéance: {new Date(task.date_echeance).toLocaleDateString()}</span>
+              <span> Échéance: {new Date(task.date_echeance).toLocaleDateString()}</span>
             )}
           </div>
           

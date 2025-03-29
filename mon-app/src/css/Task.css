@@ -1,31 +1,90 @@
 .task-item {
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
   
-  .task-item.urgent {
-    border-left: 4px solid #ff4444;
-  }
-  
-  .task-item.completed {
-    opacity: 0.7;
-  }
-  
-  .task-header {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .task-actions {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .completed-text {
-    text-decoration: line-through;
-    color: #888;
-  }
+.task-item.urgent {
+  border-left: 4px solid #ff4444;
+}
+
+.task-item.completed {
+  opacity: 0.7;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.edit-form input[type="text"],
+.edit-form select,
+.edit-form textarea,
+.edit-form input[type="date"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.edit-form input[type="text"]:focus,
+.edit-form select:focus,
+.edit-form textarea:focus,
+.edit-form input[type="date"]:focus {
+  border-color: #66afe9;
+  outline: none;
+}
+
+.edit-form textarea {
+  height: auto;
+  resize: vertical;
+  font-family: 'Arial', sans-serif;
+}
+
+.edit-form button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form button:hover {
+  background-color: #45a049;
+}
+
+.edit-form button + button {
+  background-color: #f44336;
+}
+
+.edit-form button + button:hover {
+  background-color: #e53935;
+}
