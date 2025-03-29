@@ -3,7 +3,7 @@ import '../../css/Modal.css';
 
 // Composant TaskModal qui permet de créer une nouvelle tâche via une modale
 const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
-   // Définition de l'état initial pour la nouvelle tâche
+  // Définition de l'état initial pour la nouvelle tâche
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',
@@ -12,7 +12,6 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     urgent: false,
     categorie: []
   });
-
   // Fonction pour gérer les changements dans les champs du formulaire
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,7 +31,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     }));
   };
 
-   // Fonction pour gérer la soumission du formulaire
+  // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newTask.title.length >= 3) {
@@ -101,12 +100,13 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
             </select>
           </label>
 
-          <label className="checkbox-label">
+          <label className="checkbox-label" style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'center' }}>
             <input
               type="checkbox"
               name="urgent"
               checked={newTask.urgent}
               onChange={handleChange}
+              style={{ marginRight: '8px' }} 
             />
             Urgent
           </label>
@@ -121,7 +121,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
                     checked={newTask.categorie.includes(cat.id)}
                     onChange={() => handleCategoryToggle(cat.id)}
                   />
-                  <span style={{ color: cat.color }}>
+                  <span style={{ color: cat.color, marginLeft: '8px' }}>
                     {cat.emoji} {cat.title}
                   </span>
                 </label>
@@ -129,9 +129,10 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
             </div>
           )}
 
+
           <div className="modal-buttons">
             <button type="submit">Enregistrer</button>
-            <button type="button" onClick={onClose}>Annuler</button>
+            <button type="button" onClick={onClose} className="cancel-button">Annuler</button>
           </div>
         </form>
       </div>

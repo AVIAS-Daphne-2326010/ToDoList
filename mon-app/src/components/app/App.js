@@ -100,7 +100,7 @@ function App() {
       date_echeance: newTask.date_echeance || "",
       etat: newTask.etat || "Nouveau",
       urgent: newTask.urgent || false,
-      categorie: Array.isArray(newTask.categorie) ? newTask.categorie : []
+      categorie: newTask.categorie || []
     };
   
     setCurrentTodos(prev => ({

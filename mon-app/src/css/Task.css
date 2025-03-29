@@ -39,12 +39,12 @@
 /* Style du formulaire de modification de la tâche */
 .edit-form {
   display: flex;
-  flex-direction: row;
-  gap: 15px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  margin-top: 1rem;
 }
 
 /* Style des champs de saisie dans le formulaire de modification */
@@ -101,4 +101,88 @@
 /* Effet au survol du bouton d'annulation */
 .edit-form button + button:hover {
   background-color: #e53935;
+}
+
+/* Groupes de formulaire */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Espace entre label et champ */
+  margin-bottom: 0.5rem;
+}
+
+.form-group.full-width {
+  width: 100%;
+}
+
+/* Ligne pour état + urgent */
+.form-row {
+  display: flex;
+  gap: 2rem; /* Espacement horizontal augmenté */
+  align-items: flex-end;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Cases à cocher */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.urgent-checkbox {
+  margin-bottom: 1rem;
+}
+
+/* Catégories */
+.category-selection {
+  margin-top: 0.5rem;
+}
+
+.category-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.category-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #f0f4f8;
+  border-radius: 20px;
+}
+
+/* Boutons */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem; 
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.btn-save, .btn-cancel {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Champs de formulaire */
+.form-input, .form-select, .form-textarea {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.form-textarea {
+  min-height: 120px;
 }

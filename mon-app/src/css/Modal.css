@@ -62,11 +62,11 @@
 
 /* Style pour les étiquettes des cases à cocher */
 .checkbox-label {
-  display: flex;
+  display: inline-flex; 
   align-items: center;
-  gap: 8px;
-  margin: 5px 0;
+  gap: 5px; 
   cursor: pointer;
+  margin: 5px 0;
 }
 
 /* Section de sélection des catégories avec une bordure et du padding */
@@ -75,4 +75,34 @@
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 5px;
+}
+
+/* Styles pour les cases à cocher dans la catégorie */
+.category-selection label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px; 
+  margin: 5px 0;
+}
+
+/* Amélioration de la présentation des catégories */
+.category-selection p {
+  margin-bottom: 10px;
+}
+
+/* Style pour le bouton Annuler */
+.modal-buttons button[type="button"] {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, border 0.3s;
+}
+
+/* Effet au survol du bouton Annuler */
+.modal-buttons button[type="button"]:hover {
+  background-color: darkred;
+  border: 1px solid darkred;
 }

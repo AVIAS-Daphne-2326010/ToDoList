@@ -18,7 +18,17 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
     }));
   };
 
-   // Fonction pour sauvegarder les modifications de la tâche
+  // Fonction pour gérer les changements de catégories
+  const handleCategoryToggle = (categoryId) => {
+    setEditedTask(prev => ({
+      ...prev,
+      categorie: prev.categorie.includes(categoryId)
+        ? prev.categorie.filter(id => id !== categoryId)
+        : [...prev.categorie, categoryId]
+    }));
+  };
+
+  // Fonction pour sauvegarder les modifications de la tâche
   const handleSave = () => {
     onUpdate(editedTask);
     setIsEditing(false);
@@ -30,42 +40,97 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
       
       {isEditing ? (
         <div className="edit-form">
-          <input
-            type="text"
-            name="title"
-            value={editedTask.title}
-            onChange={handleChange}
-            minLength="3"
-            required
-          />
-          <select
-            name="etat"
-            value={editedTask.etat}
-            onChange={handleChange}
-          >
-            <option value="Nouveau">Nouveau</option>
-            <option value="En cours">En cours</option>
-            <option value="Réussi">Réussi</option>
-            <option value="En attente">En attente</option>
-            <option value="Abandonné">Abandonné</option>
-          </select>
+          <div className="form-group full-width">
+            <label>Titre</label>
+            <input
+              type="text"
+              name="title"
+              value={editedTask.title}
+              onChange={handleChange}
+            />
+          </div>
+  
+          <div className="form-row">
+            <div className="form-group">
+              <label>État</label>
+              <select
+                name="etat"
+                value={editedTask.etat}
+                onChange={handleChange}
+                className="form-select"
+              >
+                <option value="Nouveau">Nouveau</option>
+                <option value="En cours">En cours</option>
+                <option value="Réussi">Réussi</option>
+                <option value="En attente">En attente</option>
+                <option value="Abandonné">Abandonné</option>
+              </select>
+            </div>
 
-          <textarea
-            name="description"
-            value={editedTask.description || ''}
-            onChange={handleChange}
-            placeholder="Ajouter une description"
-          />
+            <div className="form-group urgent-checkbox">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  name="urgent"
+                  checked={editedTask.urgent}
+                  onChange={handleChange}
+                />
+                <span>Urgent</span>
+              </label>
+            </div>
+          </div>
+  
+          <div className="form-group full-width">
+            <label>Description</label>
+            <textarea
+              name="description"
+              value={editedTask.description || ''}
+              onChange={handleChange}
+              placeholder="Ajouter une description"
+              className="form-textarea"
+            />
+          </div>
+  
+          <div className="form-group full-width">
+            <label>Date d'échéance</label>
+            <input
+              type="date"
+              name="date_echeance"
+              value={editedTask.date_echeance || ''}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
+  
+          {categories.length > 0 && (
+            <div className="form-group full-width category-selection">
+              <label>Catégories</label>
+              <div className="category-options">
+                {categories.map(cat => (
+                  <label key={cat.id} className="category-option">
+                    <input
+                      type="checkbox"
+                      checked={editedTask.categorie.includes(cat.id)}
+                      onChange={() => handleCategoryToggle(cat.id)}
+                    />
+                    <span style={{ color: cat.color }}>
+                      {cat.emoji} {cat.title}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+  
+          <div className="form-actions full-width">
+            <button className="btn-save" onClick={handleSave}>
+              Enregistrer
+            </button>
+            <button className="btn-cancel" onClick={() => setIsEditing(false)}>
+              Annuler
+            </button>
 
-          <input
-            type="date"
-            name="date_echeance"
-            value={editedTask.date_echeance || ''}
-            onChange={handleChange}
-          />
-
-          <button onClick={handleSave}>Enregistrer</button>
-          <button onClick={() => setIsEditing(false)}>Annuler</button>
+          </div>
         </div>
       ) : (
         <>
@@ -85,6 +150,19 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
             )}
           </div>
           
+          {task.categorie?.length > 0 && (
+            <div className="task-categories">
+              <strong>Catégories: </strong>
+              {categories
+                .filter(cat => task.categorie.includes(cat.id))
+                .map(category => (
+                  <span key={category.id} style={{ color: category.color, marginRight: '8px' }}>
+                    {category.emoji} {category.title}
+                  </span>
+                ))}
+            </div>
+          )}
+
           <div className="task-actions">
             <button onClick={() => setIsEditing(true)}>Modifier</button>
             <button onClick={() => onDelete(task.id)}>Supprimer</button>
