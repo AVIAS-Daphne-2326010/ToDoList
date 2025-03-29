@@ -1,8 +1,11 @@
 import React from 'react';
 import '../../css/Modal.css';
 
+// Composant InitialModal qui affiche une modale pour choisir entre charger un projet existant ou démarrer un nouveau projet
 const InitialModal = ({ isOpen, onLoadFromJSON, onStartNew }) => {
+  // Fonction qui gère l'upload du fichier JSON
   const handleFileUpload = (e) => {
+   // Récupération du fichier sélectionné
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -14,10 +17,12 @@ const InitialModal = ({ isOpen, onLoadFromJSON, onStartNew }) => {
           alert("Fichier JSON invalide");
         }
       };
+      // Lecture du fichier en tant que texte
       reader.readAsText(file);
     }
   };
 
+  // Si la modale n'est pas ouverte, rien ne s'affiche
   if (!isOpen) return null;
 
   return (

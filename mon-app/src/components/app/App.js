@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
-import todo from '../../datas.json'; //a enlever
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import TaskList from '../taskList/TaskList';
@@ -11,61 +10,82 @@ import CategoryModal from '../categoryModal/CategoryModal';
 import { ETAT_TERMINE } from '../../enums/Etats';
 
 function App() {
+  // Gére la vue actuelle
   const [currentView, setCurrentView] = useState('tasks');
+  
+  // Gére le stockage des tâches et des catégories
   const [currentTodos, setCurrentTodos] = useState({
     taches: [], 
     categories: []
   });
+
+  // Gére l'ouverture de la modale initiale
   const [isInitialModalOpen, setIsInitialModalOpen] = useState(true);
+
+  // Gére les modales de tâches et de catégories
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+
+  // Gére les filtres des tâches
   const [filters, setFilters] = useState({
     etats: [],
     categories: [],
     urgentOnly: false,
     showCompleted: false
   });
+
+  // Gére la gestion du tri des tâches
   const [sortBy, setSortBy] = useState('date_echeance');
 
-  //chargement initial
+  // Effet de chargement initial
   useEffect(() => {
     const storedData = localStorage.getItem('todoData');
-    if (storedData) {
+    const hasChosenFile = localStorage.getItem('hasChosenFile');
+  
+    // Affiche la popup uniquement si l'utilisateur n'a pas encore choisi un fichier ou un projet
+    if (!storedData || hasChosenFile !== 'true') {
+      setIsInitialModalOpen(true);
+    } else {
       try {
         const parsedData = JSON.parse(storedData);
-        if (parsedData) {
-          setCurrentTodos({
-            taches: parsedData.taches || [],
-            categories: parsedData.categories || []
-          });
-          setIsInitialModalOpen(false);
-        }
+        setCurrentTodos({
+          taches: parsedData.taches || [],
+          categories: parsedData.categories || []
+        });
       } catch (e) {
         console.error("Erreur de parsing des données", e);
       }
     }
   }, []);
 
-  //sauvegarde
+
+  // Effet pour sauvegarder les données si mise à jours
   useEffect(() => {
     if (currentTodos) {
       localStorage.setItem('todoData', JSON.stringify(currentTodos));
     }
   }, [currentTodos]);
 
+  // Fonction chargeant les données depuis un fichier JSON
   const loadFromJSON = (jsonData) => {
     setCurrentTodos(jsonData);
-    setIsInitialModalOpen(false);
+    localStorage.setItem('todoData', JSON.stringify(jsonData));
+    localStorage.setItem('hasChosenFile', 'true');
+    setIsInitialModalOpen(false); 
   };
-
+  
+  // Fonction démarrant un nouveau projet
   const startNewProject = () => {
     setCurrentTodos({
       taches: [],
       categories: []
     });
-    setIsInitialModalOpen(false);
+    localStorage.setItem('todoData', JSON.stringify({ taches: [], categories: [] }));
+    localStorage.setItem('hasChosenFile', 'true');
+    setIsInitialModalOpen(false); 
   };
-
+  
+  // Fonction ajoutant une nouvelle tâche
   const addTask = (newTask) => {
     if (!newTask.title || newTask.title.length < 3) {
       console.error("Le titre doit contenir au moins 3 caractères");
@@ -90,15 +110,17 @@ function App() {
     setIsTaskModalOpen(false);
   }
 
+  // Fonction mettant à jour une tâche existante
   const updateTask = (updatedTask) => {
     setCurrentTodos(prev => ({
       ...prev,
-      taches:prev.taches.map(task =>
-        task.id===updatedTask.id?updatedTask:task
+      taches: prev.taches.map(task =>
+        task.id === updatedTask.id ? updatedTask : task
       )
     }));
   };
 
+  // Fonction supprimant une tâche
   const deleteTask = (taskId) => {
     setCurrentTodos(prev => ({
       ...prev,
@@ -106,6 +128,7 @@ function App() {
     }));
   }
 
+  // Fonction ajoutant une nouvelle catégorie
   const addCategory = (newCategory) => {
     setCurrentTodos(prev => ({
       ...prev,
@@ -114,6 +137,7 @@ function App() {
     setIsCategoryModalOpen(false);
   }
 
+  // Fonction mettant à jour une catégorie
   const updateCategory = (updatedCategory) => {
     setCurrentTodos(prev => ({
       ...prev,
@@ -123,6 +147,7 @@ function App() {
     }));
   };
 
+  // Fonction supprimant une catégorie
   const deleteCategory = (categoryId) => {
     setCurrentTodos(prev => ({
       ...prev,
@@ -134,10 +159,12 @@ function App() {
     }));
   };
 
+  // Fonction basculant entre les vues
   const toggleView = () => {
     setCurrentView(prev => prev === 'tasks' ? 'categories' : 'tasks');
   };
 
+  // Filtre des tâches selon les critères définis
   const filteredTasks = currentTodos.taches.filter(task => {
     // Filtre par état
     if (filters.etats.length > 0 && !filters.etats.includes(task.etat)) {
@@ -159,6 +186,7 @@ function App() {
     return true;
   });
   
+  // Trie des tâches selon le cirtère sélectionné
   const sortedTasks = [...filteredTasks].sort((a, b) => {
     if (sortBy === 'date_echeance') {
       return new Date(a.date_echeance) - new Date(b.date_echeance);

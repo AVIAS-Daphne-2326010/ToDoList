@@ -1,3 +1,4 @@
+/* Style global de l'application */
 .App {
   text-align: start;
   padding-bottom: 80px;
@@ -12,17 +13,20 @@
   box-shadow: 0 4px 6px rgba(189, 127, 127, 0.1);
 }
 
+/* Style du titre dans la liste des tâches */
 .task-list h2 {
   color: #333;
   font-size: 1.5em;
   margin-bottom: 15px;
 }
 
+/* Suppression des puces pour les éléments de la liste */
 .task-list ul {
   list-style-type: none;
   padding: 0;
 }
 
+/* Style des éléments de la liste des tâches */
 .task-list li {
   background-color: #fff;
   margin: 10px 0;
@@ -32,23 +36,27 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Effet de survol des éléments de la liste */
 .task-list li:hover {
-  transform: scale(1.02); /* Légère mise en surbrillance */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Ombre plus marquée */
+  transform: scale(1.02); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
 }
 
+/* Style du titre dans chaque élément de la tâche */
 .task-list li h3 {
   font-size: 1.2em;
   color: #333;
   margin: 0; 
 }
 
+/* Style du paragraphe dans chaque élément de tâche */
 .task-list li p {
   font-size: 0.9em;
   color: #666;
   margin: 5px 0;
 }
 
+/* Style pour les tâches urgentes */
 .task-list li p.urgent {
   color: red;
   font-weight: bold;
@@ -68,6 +76,7 @@
   z-index: 1000;
 }
 
+/* Contenu de la modale */
 .modal-content {
   background-color: white;
   padding: 30px;
@@ -76,15 +85,18 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Style du titre de la modale */
 .modal-content h2 {
   margin-top: 0;
 }
 
+/* Style des labels dans la modale */
 .modal-content label {
   display: block;
   margin-bottom: 8px;
 }
 
+/* Style des champs de saisie (input, select, textarea) */
 .modal-content input,
 .modal-content select,
 .modal-content textarea {
@@ -95,6 +107,7 @@
   border-radius: 4px;
 }
 
+/* Style des boutons dans la modale */
 .modal-content button {
   padding: 10px 20px;
   background-color: #4caf50;
@@ -105,6 +118,7 @@
   margin-right: 10px;
 }
 
+/* Effet de survol pour les boutons */
 .modal-content button:hover {
   background-color: #45a049;
 }

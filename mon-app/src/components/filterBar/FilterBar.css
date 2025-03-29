@@ -1,26 +1,30 @@
+/* Style pour la barre de filtrage principale */
 .filter-bar {
-    background-color: #f5f5f5;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .filter-group {
-    flex: 1;
-    min-width: 200px;
-  }
-  
-  .filter-group h4 {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-  
-  .filter-group select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-  }
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Style pour chaque groupe de filtres */
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Style pour le titre de chaque groupe de filtres */
+.filter-group h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Style pour les éléments de sélection (dropdown) dans chaque groupe de filtres */
+.filter-group select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}

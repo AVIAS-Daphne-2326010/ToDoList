@@ -1,69 +1,78 @@
+/* Le fond de la modale qui couvre tout l'écran avec un fond semi-transparent */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  
-  .modal-options {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .modal-options .option {
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-  }
-  
-  .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .file-upload-button {
-    display: inline-block;
-    padding: 8px 12px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .file-upload-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 5px 0;
-    cursor: pointer;
-  }
-  
-  .category-selection {
-    margin: 15px 0;
-    padding: 10px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Contenu de la modale avec une bordure arrondie et du padding */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Section contenant les options dans la modale */
+.modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Style pour chaque option dans la modale */
+.modal-options .option {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Conteneur des boutons de la modale alignés à droite */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Style du bouton de sélection de fichier */
+.file-upload-button {
+  display: inline-block;
+  padding: 8px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Effet au survol du bouton de sélection de fichier */
+.file-upload-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Style pour les étiquettes des cases à cocher */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+/* Section de sélection des catégories avec une bordure et du padding */
+.category-selection {
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+}

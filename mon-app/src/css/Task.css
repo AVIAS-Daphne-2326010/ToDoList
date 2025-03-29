@@ -1,3 +1,4 @@
+/* Style pour chaque élément de tâche */
 .task-item {
   padding: 15px;
   margin-bottom: 10px;
@@ -6,30 +7,36 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
   
+/* Style spécifique pour les tâches urgentes */
 .task-item.urgent {
   border-left: 4px solid #ff4444;
 }
 
+/* Style pour les tâches terminées, avec une opacité réduite */
 .task-item.completed {
   opacity: 0.7;
 }
 
+/* Style de l'en-tête de la tâche, avec un espacement entre les éléments */
 .task-header {
   display: flex;
   justify-content: space-between;
 }
 
+/* Style des actions de la tâche, avec un espacement horizontal entre les boutons */
 .task-actions {
   margin-top: 10px;
   display: flex;
   gap: 10px;
 }
 
+/* Style pour le texte barré des tâches terminées */
 .completed-text {
   text-decoration: line-through;
   color: #888;
 }
 
+/* Style du formulaire de modification de la tâche */
 .edit-form {
   display: flex;
   flex-direction: row;
@@ -40,6 +47,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* Style des champs de saisie dans le formulaire de modification */
 .edit-form input[type="text"],
 .edit-form select,
 .edit-form textarea,
@@ -52,6 +60,7 @@
   transition: border-color 0.3s ease;
 }
 
+/* Style des champs de saisie lorsque l'utilisateur est en train de les remplir */
 .edit-form input[type="text"]:focus,
 .edit-form select:focus,
 .edit-form textarea:focus,
@@ -60,12 +69,14 @@
   outline: none;
 }
 
+/* Style spécifique pour les zones de texte */
 .edit-form textarea {
   height: auto;
   resize: vertical;
   font-family: 'Arial', sans-serif;
 }
 
+/* Style pour le bouton de soumission dans le formulaire */
 .edit-form button {
   padding: 10px 20px;
   border-radius: 5px;
@@ -77,14 +88,17 @@
   transition: background-color 0.3s ease;
 }
 
+/* Effet au survol du bouton de soumission */
 .edit-form button:hover {
   background-color: #45a049;
 }
 
+/* Style pour un bouton d'annulation après le bouton de soumission */
 .edit-form button + button {
   background-color: #f44336;
 }
 
+/* Effet au survol du bouton d'annulation */
 .edit-form button + button:hover {
   background-color: #e53935;
 }

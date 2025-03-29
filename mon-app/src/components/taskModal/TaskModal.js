@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import '../../css/Modal.css';
 
+// Composant TaskModal qui permet de créer une nouvelle tâche via une modale
 const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
+   // Définition de l'état initial pour la nouvelle tâche
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',
@@ -11,6 +13,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     categorie: []
   });
 
+  // Fonction pour gérer les changements dans les champs du formulaire
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setNewTask(prev => ({
@@ -19,6 +22,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     }));
   };
 
+  // Fonction pour gérer la sélection/désélection des catégories
   const handleCategoryToggle = (categoryId) => {
     setNewTask(prev => ({
       ...prev,
@@ -28,6 +32,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     }));
   };
 
+   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault();
     if (newTask.title.length >= 3) {
@@ -42,6 +47,7 @@ const TaskModal = ({ isOpen, onClose, onSave, categories }) => {
     }
   };
 
+  // Si la modale n'est pas ouverte, on ne l'affiche pas
   if (!isOpen) return null;
 
   return (

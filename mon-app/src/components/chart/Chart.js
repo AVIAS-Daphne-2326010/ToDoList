@@ -1,14 +1,17 @@
 import React from "react";
 
 const Chart = ({ taches }) => {
+  // Réduit les tâches pour obtenir la répartition par état
   const stats = taches.reduce((acc, tache) => {
     acc[tache.etat] = (acc[tache.etat] || 0) + 1;
     return acc;
   }, {});
 
+  // Calcule le total des tâches
   const total = Object.values(stats).reduce((sum, val) => sum + val, 0);
   let startAngle = 0;
 
+  // Palette de couleurs pour chaque état
   const colors = ["#5c8b91", "#7ca2a7", "#9db9bd", "#bdd0d3"];
 
   return (
@@ -16,6 +19,7 @@ const Chart = ({ taches }) => {
       {/* Graphique */}
       <svg width="70" height="70" viewBox="-100 -100 200 200">
         {Object.entries(stats).map(([etat, count], index) => {
+          // Calcule l'angle du secteur pour chaque état
           const angle = (count / total) * 360;
           const endAngle = startAngle + angle;
           const largeArc = angle > 180 ? 1 : 0;
@@ -36,6 +40,7 @@ const Chart = ({ taches }) => {
           startAngle = endAngle;
 
           return (
+            // Dessine chaque secteur du graphique en fonction des données
             <path key={etat} d={pathData} fill={colors[index % colors.length]} />
           );
         })}

@@ -7,7 +7,7 @@
   max-width: 600px;
   margin: 0 auto;
 }
-  
+
 /* Style pour la liste des catégories */
 .category-list {
   display: flex;
@@ -27,12 +27,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Effet survol de chaque élément de catégorie */
 .category-item:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Bordure colorée à gauche */
+/* Bordure colorée à gauche pour chaque élément de catégorie */
 .category-item {
   border-left: 5px solid;
   padding-left: 15px;
@@ -50,7 +51,7 @@
   font-weight: 600;
   color: #333;
 }
-  
+
 /* Style pour le bouton d'ajout de catégorie */
 .add-category-button {
   display: inline-block;
@@ -63,12 +64,13 @@
   margin-top: 20px;
   transition: background-color 0.3s ease;
 }
-  
+
+/* Effet survol du bouton d'ajout de catégorie */
 .add-category-button:hover {
   background-color: #45a049;
 }
-  
-  /* Bouton de suppression */
+
+/* Style pour le bouton de suppression */
 .delete-category-button {
   background: none;
   border: none;
@@ -79,22 +81,26 @@
   transition: color 0.3s ease;
 }
 
+/* Effet survol du bouton de suppression */
 .delete-category-button:hover {
   color: #c0392b;
 }
 
+/* Style pour l'édition d'une catégorie */
 .edit-category {
   display: flex;
   gap: 5px;
   align-items: center;
 }
 
+/* Style des champs de saisie pour l'édition */
 .edit-category input {
   border: 1px solid #ddd;
   padding: 5px;
   border-radius: 5px;
 }
 
+/* Style du bouton d'édition */
 .edit-category button {
   background: none;
   border: none;
@@ -102,10 +108,12 @@
   cursor: pointer;
 }
 
+/* Effet survol du bouton d'édition */
 .edit-category button:hover {
   opacity: 0.7;
 }
 
+/* Style du bouton d'édition spécifique */
 .edit-category-button {
   background: none;
   border: none;
@@ -115,6 +123,7 @@
   margin-left: 20px;
 }
 
+/* Effet survol du bouton d'édition spécifique */
 .edit-category-button:hover {
   color: #2980b9;
 }

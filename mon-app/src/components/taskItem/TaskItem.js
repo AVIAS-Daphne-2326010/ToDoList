@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { ETAT_TERMINE } from '../../enums/Etats';
 import '../../css/Task.css';
 
+// Composant TaskItem représentant une tâche individuelle dans la liste
 const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
+  // État pour gérer si la tâche est en mode édition
   const [isEditing, setIsEditing] = useState(false);
+  // État pour stocker les modifications apportées à la tâche
   const [editedTask, setEditedTask] = useState(task);
 
+  // Fonction pour gérer les changements dans les champs de la tâche
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setEditedTask(prev => ({
@@ -14,6 +18,7 @@ const TaskItem = ({ task, categories, onUpdate, onDelete }) => {
     }));
   };
 
+   // Fonction pour sauvegarder les modifications de la tâche
   const handleSave = () => {
     onUpdate(editedTask);
     setIsEditing(false);

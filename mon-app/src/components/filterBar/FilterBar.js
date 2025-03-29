@@ -2,6 +2,7 @@ import React from 'react';
 import { ETATS, ETAT_TERMINE } from '../../enums/Etats';
 import './FilterBar.css';
 
+// Fonction pour basculer la sélection d'un état de filtre
 const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
   const toggleEtatFilter = (etat) => {
     setFilters(prev => ({
@@ -12,6 +13,7 @@ const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
     }));
   };
 
+  // Fonction pour basculer la sélection d'une catégorie de filtre
   const toggleCategoryFilter = (categoryId) => {
     setFilters(prev => ({
       ...prev,
@@ -23,6 +25,7 @@ const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
 
   return (
     <div className="filter-bar">
+      {/* Section pour le tri des éléments */}
       <div className="filter-group">
         <h4>Trier par:</h4>
         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
@@ -32,6 +35,7 @@ const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
         </select>
       </div>
 
+      {/* Section pour filtrer par état */}
       <div className="filter-group">
         <h4>Filtrer par état:</h4>
         {Object.values(ETATS).map(etat => (
@@ -46,6 +50,7 @@ const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
         ))}
       </div>
 
+      {/* Section pour filtrer par catégorie, seulement si des catégories existent */}
       {categories.length > 0 && (
         <div className="filter-group">
           <h4>Filtrer par catégorie:</h4>
@@ -64,6 +69,7 @@ const FilterBar = ({ categories, filters, setFilters, sortBy, setSortBy }) => {
         </div>
       )}
 
+      {/* Section pour des filtres supplémentaires comme "Urgentes seulement" et "Afficher les tâches terminées" */}
       <div className="filter-group">
         <label className="checkbox-label">
           <input
