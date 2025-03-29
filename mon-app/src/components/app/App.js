@@ -114,6 +114,26 @@ function App() {
     setIsCategoryModalOpen(false);
   }
 
+  const updateCategory = (updatedCategory) => {
+    setCurrentTodos(prev => ({
+      ...prev,
+      categories: prev.categories.map(category =>
+        category.id === updatedCategory.id ? updatedCategory : category
+      )
+    }));
+  };
+
+  const deleteCategory = (categoryId) => {
+    setCurrentTodos(prev => ({
+      ...prev,
+      categories: prev.categories.filter(category => category.id !== categoryId),
+      taches: prev.taches.map(task => ({
+        ...task,
+        categorie: task.categorie.filter(catId => catId !== categoryId)
+      }))
+    }));
+  };
+
   const toggleView = () => {
     setCurrentView(prev => prev === 'tasks' ? 'categories' : 'tasks');
   };
@@ -171,6 +191,8 @@ function App() {
         <CategoryList 
           categories={currentTodos.categories}
           onAddCategory={() => setIsCategoryModalOpen(true)}
+          onDeleteCategory={deleteCategory}
+          onUpdateCategory={updateCategory} 
         />
       )}
 
